@@ -1,0 +1,21 @@
+# Node.js
+node_modules/
+
+# Logs y archivos temporales
+logs/
+*.log
+npm-debug.log*
+
+# Archivos de entorno
+.env
+
+# Carpetas específicas de desarrollo
+dist/
+tmp/
+.cache/
+
+# Archivos de configuración locales
+.vscode/
+.idea/
+
+# Dependiendo de tu configuración de IDE, es posible que desees agregar más aquí.
