@@ -21,10 +21,15 @@ router.get('/transactions', (req, res) => {
 // Endpoint para crear una nueva transacción de criptomonedas
 router.post('/transactions', cryptocurrencyController.createTransaction);
 
+// Endpoint para vender criptomonedas
+router.post('/sell', cryptocurrencyController.sellCryptocurrency);
+
 // Endpoint para actualizar una transacción de criptomonedas
 router.put('/transactions/:id', cryptocurrencyController.updateTransaction);
 
 // Endpoint para eliminar una transacción de criptomonedas
 router.delete('/transactions/:id', cryptocurrencyController.deleteTransaction);
+
+
 
 module.exports = router;

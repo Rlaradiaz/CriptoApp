@@ -18,6 +18,8 @@ const cryptocurrencyTransactionSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+
+  
   // Otros campos necesarios para tu aplicación
 });
 
