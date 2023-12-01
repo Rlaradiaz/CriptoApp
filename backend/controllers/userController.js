@@ -1,6 +1,7 @@
 const axios = require('axios');
 const User = require('../models/User');
 const CryptocurrencyTransaction = require('../models/CryptocurrencyTransaction');
+let cryptoPricesCache = {};
 
 const createUser = async (req, res) => {
   try {
@@ -41,26 +42,56 @@ const getUserById = async (req, res) => {
     // Obtener transacciones del usuario
     const transactions = await CryptocurrencyTransaction.find({ userId: user._id });
 
-    // Calcular el valor actual en USD de las transacciones
-    const TotalInvestment = await calculateTotalValueUSD(transactions);
+    // Obtener la cantidad real de cada criptomoneda que posee el usuario
+    const cryptoHoldings = {};
 
-    // Calcular el total del balance en USD considerando si es ganancia o pérdida
-    const TotalBalance = user.balance + TotalInvestment; // Cambiado de resta a suma
+    for (const transaction of transactions) {
+      if (!cryptoHoldings[transaction.cryptocurrencyId]) {
+        cryptoHoldings[transaction.cryptocurrencyId] = 0;
+      }
+      cryptoHoldings[transaction.cryptocurrencyId] += transaction.quantity;
+    }
+
+    // Calcular el valor actual en USD de las criptomonedas que posee el usuario
+    const cryptoHoldingsValue = {};
+    for (const cryptocurrencyId of Object.keys(cryptoHoldings)) {
+      const cryptocurrencyPrice = await getCurrentCryptocurrencyPrice(cryptocurrencyId);
+
+      // Asegúrate de manejar el caso donde cryptocurrencyPrice es 0
+      if (cryptocurrencyPrice === 0) {
+        console.warn(`El precio de ${cryptocurrencyId} es 0. Se omite del cálculo.`);
+        continue;
+      }
+
+      cryptoHoldingsValue[cryptocurrencyId] = cryptoHoldings[cryptocurrencyId] * cryptocurrencyPrice;
+    }
+
+    // Cambiar la etiqueta "balance" por "efectivo"
+    const efectivo = user.balance;
+
+    // Agregar un campo "valorPortafolio" que suma el efectivo y el valor en dólares de las criptomonedas
+    const valorPortafolio = efectivo + Object.values(cryptoHoldingsValue).reduce((total, value) => total + value, 0);
+
+    // Imprime en la consola el valor del portafolio para depuración
+    console.log(`Valor del portafolio para el usuario ${userId}: ${valorPortafolio}`);
 
     res.json({
       _id: user._id,
       username: user.username,
       email: user.email,
       password: user.password,
-      balance: user.balance,
-      transactions: transactions,
-      TotalInvest,
-      TotalBalance, // Cambiado de resta a suma
+      efectivo,
+      cryptoHoldings,
+      cryptoHoldingsValue,
+      valorPortafolio,
+      transacciones: transactions,
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+
+
 
 const getAllUsers = async (req, res) => {
   try {
@@ -128,6 +159,9 @@ const calculateTotalValueUSD = async (transactions) => {
 // Función para obtener el precio actual de una criptomoneda
 const getCurrentCryptocurrencyPrice = async (cryptocurrencyId) => {
   try {
+    // Agregar un retraso de 1 segundo entre las solicitudes
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
     const response = await axios.get('https://api.coingecko.com/api/v3/simple/price', {
       params: {
         ids: cryptocurrencyId,
@@ -141,6 +175,7 @@ const getCurrentCryptocurrencyPrice = async (cryptocurrencyId) => {
     return 0; // Manejar el error según tus necesidades
   }
 };
+
 
 module.exports = {
   createUser,
