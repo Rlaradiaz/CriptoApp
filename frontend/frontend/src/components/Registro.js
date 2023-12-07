@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Registro = () => {
   const [usuario, setUsuario] = useState('');
@@ -23,7 +24,7 @@ const Registro = () => {
         // Manejar la respuesta del servidor
         console.log('Respuesta del servidor:', response.data);
 
-        // Actualizar el estado para mostrar el mensaje de éxito
+        
         setRegistroExitoso(true);
 
         // Limpiar los campos del formulario
@@ -31,13 +32,13 @@ const Registro = () => {
         setCorreo('');
         setContrasena('');
 
-        // Aquí puedes realizar acciones adicionales, como redirigir al usuario a otra página
+        
       } else {
         console.error('La respuesta del servidor no contiene datos:', response);
       }
     } catch (error) {
       console.error('Error al registrar:', error.response?.data || error.message);
-      // Puedes manejar el error mostrando un mensaje al usuario, por ejemplo
+      
     }
   };
 
@@ -62,7 +63,15 @@ const Registro = () => {
         </label>
         <br />
         <button type="submit">Registrarse</button>
+
+        
       </form>
+
+      <p>
+        <Link to="/">Atrás</Link>
+       
+      </p>
+      
     </div>
   );
 };

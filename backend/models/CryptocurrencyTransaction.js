@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const cryptocurrencyTransactionSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', // Referencia al modelo de usuario
+    ref: 'User',
     required: true,
   },
   cryptocurrencyId: {
-    type: String, // Puedes ajustar el tipo según tu necesidad
+    type: String, 
     required: true,
   },
   quantity: {
@@ -20,7 +20,7 @@ const cryptocurrencyTransactionSchema = new mongoose.Schema({
   },
 
   
-  // Otros campos necesarios para tu aplicación
+  
 });
 
 const CryptocurrencyTransaction = mongoose.model('CryptocurrencyTransaction', cryptocurrencyTransactionSchema);

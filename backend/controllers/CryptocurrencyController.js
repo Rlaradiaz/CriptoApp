@@ -43,8 +43,7 @@ const getTopCryptocurrencies = async (req, res) => {
 };
 
 const getCryptocurrencies = async (req, res) => {
-  // Implementa la lógica para obtener la lista completa de criptomonedas
-  // Puedes consultar la API de CoinGecko u otra fuente de datos
+
   res.send('Lista completa de criptomonedas');
 };
 
@@ -52,13 +51,13 @@ const createTransaction = async (req, res) => {
   try {
     const { userId, cryptocurrencyId, totalCost } = req.body;
 
-    // Verificar si el usuario existe
+    
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ error: 'Usuario no encontrado' });
     }
 
-    // Obtener el precio actual de la criptomoneda
+    
     const response = await axios.get(`https://api.coingecko.com/api/v3/simple/price`, {
       params: {
         ids: cryptocurrencyId,
@@ -68,24 +67,24 @@ const createTransaction = async (req, res) => {
 
     const cryptocurrencyPrice = response.data[cryptocurrencyId].usd;
 
-    // Verificar si el usuario tiene suficiente saldo
+    
     const totalPrice = totalCost;
     if (user.balance < totalPrice) {
       return res.status(400).json({ error: 'Saldo insuficiente', totalPrice, userBalance: user.balance });
     }
 
-    // Calcular la cantidad basada en el precio actual
+   
     const quantity = totalCost / cryptocurrencyPrice;
 
-    // Crear la transacción
+    
     const transaction = await CryptocurrencyTransaction.create({
       userId,
       cryptocurrencyId,
-      quantity, // Se utiliza la cantidad calculada
+      quantity, 
       totalCost,
     });
 
-    // Actualizar el saldo del usuario
+    
     await User.findByIdAndUpdate(userId, { $inc: { balance: -totalPrice } }, { new: true });
 
     res.json(transaction);
@@ -99,13 +98,13 @@ const sellCryptocurrency = async (req, res) => {
   try {
     const { userId, cryptocurrencyId, quantitySold } = req.body;
 
-    // Verificar si el usuario existe
+    
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ error: 'Usuario no encontrado' });
     }
 
-    // Verificar si el usuario tiene la cantidad suficiente de criptomoneda para vender
+   
     const transaction = await CryptocurrencyTransaction.findOne({
       userId,
       cryptocurrencyId,
@@ -115,29 +114,28 @@ const sellCryptocurrency = async (req, res) => {
       return res.status(400).json({ error: 'Cantidad insuficiente de criptomoneda para vender' });
     }
 
-    // Obtener el precio actual de la criptomoneda
+    
     const cryptocurrencyPrice = await getCurrentCryptocurrencyPrice(cryptocurrencyId);
 
-    // Calcular la cantidad y el valor de la criptomoneda vendida
+    
     const soldValue = quantitySold * cryptocurrencyPrice;
 
-    // Actualizar la cantidad restante después de la venta
+    
     const remainingCryptocurrencyQuantity = transaction.quantity - quantitySold;
 
-    // Actualizar TotalInvestment restando el valor de la criptomoneda vendida
+    
     const updatedTotalInvestment = user.TotalInvestment - soldValue;
 
-    // Actualizar el balance sumando el valor en dólares de la criptomoneda vendida
     const updatedBalance = user.balance + soldValue;
 
-    // Actualizar la transacción de criptomoneda
+    
     const updatedTransaction = await CryptocurrencyTransaction.findByIdAndUpdate(
       transaction._id,
       { quantity: remainingCryptocurrencyQuantity },
       { new: true }
     );
 
-    // Actualizar el usuario con los nuevos valores
+    
     const updatedUser = await User.findByIdAndUpdate(
       userId,
       {
@@ -158,12 +156,12 @@ const sellCryptocurrency = async (req, res) => {
 };
 
 const updateTransaction = async (req, res) => {
-  // Implementa la lógica para actualizar una transacción
+ 
   res.send(`Transacción de criptomonedas actualizada - ID: ${req.params.id}`);
 };
 
 const deleteTransaction = async (req, res) => {
-  // Implementa la lógica para eliminar una transacción
+ 
   res.send(`Transacción de criptomonedas eliminada - ID: ${req.params.id}`);
 };
 

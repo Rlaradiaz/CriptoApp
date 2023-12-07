@@ -5,7 +5,8 @@ import Home from './components/Home';
 import Registro from './components/Registro';
 import GestionUsuarios from './components/GestionUsuarios';
 import UsuarioDetalle from './components/UsuarioDetalle';
-import EditarUsuario from './components/EditarUsuario'; // Importa el componente de edición de usuario
+import EditarUsuario from './components/EditarUsuario';
+import TopCryptos from './components/TopCryptos'; 
 
 const App = () => {
   return (
@@ -15,9 +16,10 @@ const App = () => {
         <Route path="/usuarios" element={<GestionUsuarios />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="/usuarios/:userId" element={<UsuarioDetalle />} />
-        <Route path="/usuarios/:userId/editar" element={<EditarUsuario />} /> {/* Agrega esta línea para la edición de usuario */}
+        <Route path="/usuarios/:userId/editar" element={<EditarUsuario />} />
+        <Route path="/topcryptos" element={<TopCryptos />} /> 
 
-        {/* Otras rutas y componentes */}
+        
       </Routes>
     </div>
   );

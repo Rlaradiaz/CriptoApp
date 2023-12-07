@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const GestionUsuarios = () => {
   const [usuarios, setUsuarios] = useState([]);
@@ -35,10 +36,10 @@ const GestionUsuarios = () => {
 
   const eliminarUsuario = async (userId) => {
     try {
-      // Enviar solicitud al backend para eliminar el usuario
+      
       await axios.delete(`http://localhost:3000/api/users/${userId}`);
 
-      // Actualizar la lista de usuarios después de eliminar
+      
       const response = await axios.get('http://localhost:3000/api/users');
       setUsuarios(response.data);
     } catch (error) {
@@ -73,6 +74,10 @@ const GestionUsuarios = () => {
           ))}
         </tbody>
       </table>
+      <p>
+        <Link to="/">Atrás</Link>
+       
+      </p>
     </div>
   );
 };

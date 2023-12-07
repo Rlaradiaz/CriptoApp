@@ -30,10 +30,10 @@ const EditarUsuario = () => {
       await axios.put(`http://localhost:3000/api/users/${userId}`, {
         username: nuevoUsername,
         email: nuevoEmail,
-        // Otros campos que desees actualizar
+        
       });
 
-      // Manejar la respuesta del servidor, por ejemplo, redirigir o mostrar un mensaje de éxito
+      
       navigate(`/usuarios/${userId}`);
     } catch (error) {
       console.error('Error al actualizar el usuario:', error.response?.data || error.message);
@@ -58,7 +58,7 @@ const EditarUsuario = () => {
           <input type="email" value={nuevoEmail} onChange={(e) => setNuevoEmail(e.target.value)} />
         </label>
         <br />
-        {/* Agregar más campos según tus necesidades */}
+        
         <button type="submit">Guardar Cambios</button>
       </form>
     </div>

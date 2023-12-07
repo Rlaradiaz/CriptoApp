@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
   password: String,
   balance: {
     type: Number,
-    default: 50000, // Saldo inicial de $50,000
+    default: 50000, 
   },
   
 });

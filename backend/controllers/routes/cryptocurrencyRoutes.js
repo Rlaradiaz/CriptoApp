@@ -4,8 +4,6 @@ const express = require('express');
 const router = express.Router();
 const cryptocurrencyController = require('../CryptocurrencyController');
 
-
-
 // Endpoint para obtener las 10 principales criptomonedas desde la API de CoinGecko
 router.get('/top', cryptocurrencyController.getTopCryptocurrencies);
 

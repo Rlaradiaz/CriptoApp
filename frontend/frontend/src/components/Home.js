@@ -9,23 +9,24 @@ const Home = () => {
       <p>
         Thank you for choosing CryptoApp, your go-to platform for seamless cryptocurrency trading. This platform is designed for authorized personnel to efficiently manage cryptocurrency transactions.
       </p>
-      <br />
-      <p>
+       <p>
         <strong>Getting Started:</strong>
       </p>
       <ul>
-        <li>
-          <strong>Login:</strong> Before you start managing cryptocurrency transactions, please <Link to="/login">log in</Link> with your credentials.
+      <li>
+          <strong>Register Clients:</strong> Do you need to register a new user? <Link to="/registro">Register here</Link>.
         </li>
-        <li>
-          <strong>Explore Cryptocurrencies:</strong> Visit the <Link to="/cryptocurrencies">Cryptocurrencies</Link> section to discover the latest market trends, prices, and detailed information about various cryptocurrencies.
-        </li>
-        <li>
-          <strong>Manage Your Portfolio:</strong> Head to <Link to="/usuarios">User Management</Link> to view and manage your account. Here, you can check your current balance, track transactions, and update your profile details.
-        </li>
-        <li>
-          <strong>Place Trades:</strong> Ready to dive into the market? Navigate to <Link to="/transactions">Transactions</Link> to buy or sell cryptocurrencies. Our intuitive interface ensures a smooth trading experience.
-        </li>
+
+      <li>
+      <strong>Manage Clients Portfolios:</strong> Visit{' '}
+      <Link to="/usuarios">User Management</Link> to create and delete clients, as well as view their portfolios. Here, you can check the current balance, track transactions, and update your profile details.
+      </li>
+      <li>
+      <strong>Explore Top Cryptocurrencies:</strong> 
+      Ready to discover the top-performing cryptocurrencies? Check out the <Link to="/topcryptos">Top Cryptos</Link> to stay informed about the latest market trends and values.
+      </li>
+
+ 
       </ul>
       <p>
         <strong>Key Features:</strong>
@@ -41,14 +42,12 @@ const Home = () => {
           <strong>User-Friendly Interface:</strong> Our platform is designed with simplicity in mind. Enjoy a hassle-free trading experience, whether you're a beginner or an experienced trader.
         </li>
       </ul>
+      
       <p>
-        <strong>Important Note:</strong> Access to this platform is restricted to authorized personnel only. If you encounter any issues or have questions, please contact our support team for assistance.
-      </p>
-      <p>
-        <strong>Ready to Start?</strong> Click <Link to="/login">here</Link> to log in and begin managing your crypto portfolio with our cutting-edge trading features. If you have any questions or need assistance, our support team is here to help.
-      </p>
-      <p>
+       
         Happy trading!
+        
+        <br />
         <br />
         <em>The CryptoApp Team</em>
       </p>
