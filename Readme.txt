@@ -1,12 +1,24 @@
-# CryptoApp 
+CryptoApp 
 
-Este es el servidor backend para CryptoApp, una plataforma de seguimiento de inversiones en criptomonedas.
+CryptoApp permite al administrador de cuentas realizar seguimiento a las inversiones en criptomonedas, visualizar transacciones, y ver el rendimiento de sus carteras.
 
-## Descripción
 
-CryptoApp permite al administrador de cuentas realizar seguimiento inversiones en criptomonedas, visualizar transacciones, y ver el rendimiento de sus carteras.
+Características
+Gestión de Usuarios:
+Registrar nuevos usuarios.
+Ver, editar y eliminar perfiles de usuarios.
+Dar dinero a los usuarios con fines de prueba.
+Transacciones de Criptomonedas:
+Comprar y vender criptomonedas.
+Ver historial de transacciones.
+Monitorear tenencias de criptomonedas y valor del portafolio.
+Principales Criptomonedas:
 
-## Funcionalidades Principales
+Explorar las 10 principales criptomonedas con precios en tiempo real.
+Interfaz Amigable para el Usuario.
+
+Diseño simple e intuitivo para una experiencia de negociación sin complicaciones.
+
 
 Crear un usuario: POST /api/users
 {
@@ -52,6 +64,7 @@ Actualizar una transacción de criptomonedas por ID: PUT /api/transactions/trans
 - MongoDB
 - Mongoose (ODM para MongoDB)
 - React
+- axios
 
 
 
